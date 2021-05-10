@@ -149,9 +149,10 @@ class FlaskServer(object):
         # build the model from a config file and a checkpoint file
         if device is None:
             device = "cuda"
-        self.model = init_detector(config_file, checkpoint_file, device=device)
-
-
+        try:
+            self.model = init_detector(config_file, checkpoint_file, device=device)            
+        except:
+            self.model = init_detector(config_file, checkpoint_file, device="cpu")
         # # backup the config and checkpoint to s3
         # config_file_s3 = f"{project_id}/{task_id}/faster_rcnn_r50_fpn_1x_coco.py"
         # checkpoint_file_s3 = f'{project_id}/{task_id}/latest.pth'
@@ -274,20 +275,47 @@ class FlaskServer(object):
             if error is not None:
                 answer["error"] = error
             
-
         ## back-compatilibilty
         if (content_type == "image/jpeg" and task is None):
             # Read request
             image_bytes = request.data
-            nparr = np.frombuffer(image_bytes,np.uint8)
+            nparr = np.frombuffer(image_bytes, np.uint8)
             image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-            
+
             if answer["error"] is None:
-                results = self.infer_image(image)    
-                answer.update(results)    
-            # print("answer", answer)
+                results = self.infer_image(image)
+                answer.update(results)
+            print("answer", answer)
             return jsonify(answer)
         
+        elif (content_type == "video/mp4" and task is None):
+            # Read request
+            image_bytes = request.data
+            file = open("tmp.mp4", "wb")
+            file.write(image_bytes)
+            file.close()
+            # nparr = np.frombuffer(image_bytes, np.uint8)
+            # image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+            if answer["error"] is None:
+                cap = cv2.VideoCapture("tmp.mp4")
+                results_video = {}
+                i =0 
+                while(True):
+                    # Capture frame-by-frame
+                    ret, frame = cap.read()
+                    if not ret:
+                        break
+                    results = self.infer_image(frame)
+                    results_video.update({str(i): results})
+                    i = i + 1
+                    # print(results_video)
+                # results = {"inference_video":"TBD"}
+                answer.update(results_video)
+            # print("answer", answer)
+            os.remove("tmp.mp4")
+            return jsonify(answer)
+
 
         ## back-compatilibilty
         elif (content_type == "image/jpeg" and task is "detect/face"):
