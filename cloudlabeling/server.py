@@ -20,6 +20,24 @@ import requests
 
 # import face_recognition
 
+def draw_Boxes(frame, boxes, ext="JPEG"):
+
+    # WITH PIL
+    # with Image.open(frame_path) as im:
+
+        # font = ImageFont.truetype('DejaVuSansMono.ttf', size=20)
+
+    # draw = ImageDraw.Draw(im)
+    for rect, score, label in zip(boxes["boxes"], boxes["scores"], boxes["labels_words"]):
+        if score > 0.7:
+            # print(rect)
+            frame = cv2.rectangle(frame, (int(rect[0]), int(rect[1])), (int(rect[2]), int(rect[3])), (0, 128, 0), 5)
+            frame = cv2.putText(frame, label, (int(rect[0]), int(rect[1]+10)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 2, cv2.LINE_AA)
+
+    return frame
+        # write to stdout
+        # im.save(frame_path, ext)
+
 
 class FlaskServer(object):
     def __init__(self, HOST, PORT):
@@ -290,6 +308,8 @@ class FlaskServer(object):
         
         elif (content_type == "video/mp4" and task is None):
             # Read request
+
+            output_format = request.headers.get('return')
             image_bytes = request.data
             file = open("tmp.mp4", "wb")
             file.write(image_bytes)
@@ -299,6 +319,9 @@ class FlaskServer(object):
 
             if answer["error"] is None:
                 cap = cv2.VideoCapture("tmp.mp4")
+
+                if output_format == "video":
+                    out = cv2.VideoWriter("out.mp4", cv2.VideoWriter_fourcc('M','P','4','V'), 30.0, (640,480))
                 results_video = {}
                 i =0 
                 while(True):
@@ -306,15 +329,44 @@ class FlaskServer(object):
                     ret, frame = cap.read()
                     if not ret:
                         break
-                    results = self.infer_image(frame)
+                    # results = {}
+                    frame_drop = request.headers.get('frame_drop')
+                    if frame_drop is None:
+                        frame_drop = 10
+                    if i % int(frame_drop) == 0:
+                        results = self.infer_image(frame)
+                    print({str(i): results})
                     results_video.update({str(i): results})
                     i = i + 1
+
+                    if output_format == "video":
+                        #TODO: Draw BB
+                        # p
+                        draw_Boxes(frame,results)
+                        out.write(frame)
                     # print(results_video)
                 # results = {"inference_video":"TBD"}
                 answer.update(results_video)
-            # print("answer", answer)
+            cap.release()
             os.remove("tmp.mp4")
-            return jsonify(answer)
+            # print("answer", answer)
+            # os.remove("tmp.mp4")
+            # return jsonify(answer)
+            if output_format == "video":
+                out.release()
+                file = open("out.mp4", "rb")
+                byte = file.read()
+                file.close()
+                os.remove("out.mp4")
+                return byte
+
+            else:
+                return jsonify(answer)
+
+
+            # print(f"Downloading tmp.mp4")
+            # return send_from_directory(directory='.', filename="tmp.mp4")
+            # return 
 
 
         ## back-compatilibilty
