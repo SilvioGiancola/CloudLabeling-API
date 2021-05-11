@@ -319,9 +319,12 @@ class FlaskServer(object):
 
             if answer["error"] is None:
                 cap = cv2.VideoCapture("tmp.mp4")
-
+                w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+                h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                fps = cap.get(cv2.CAP_PROP_FPS)
+                print(fps, (w, h))
                 if output_format == "video":
-                    out = cv2.VideoWriter("out.mp4", cv2.VideoWriter_fourcc('M','P','4','V'), 30.0, (640,480))
+                    out = cv2.VideoWriter("out.mp4", cv2.VideoWriter_fourcc('M','P','4','V'), fps, (w,h))
                 results_video = {}
                 i =0 
                 while(True):
