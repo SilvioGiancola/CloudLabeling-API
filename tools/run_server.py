@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory       
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
-from cloudlabeling import server as cloudserver
+
 import os
 
 app = Flask(__name__)
@@ -42,6 +42,7 @@ if __name__ == "__main__":
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ["CUDA_VISIBLE_DEVICES"] = str(args.GPU)
 
+    from cloudlabeling import server as cloudserver # import here to enable args.GPU
     server = cloudserver.FlaskServer(args.HOST, args.PORT)
     app.run(host=server.HOST, port=server.PORT)
 
