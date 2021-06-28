@@ -7,4 +7,10 @@
 Create a Project
 ================
 
-How to create a project
+To create a project click "New Project".
+
+.. image:: image/search.png
+  :width: 400
+  :alt: Alternative text
+
+Then you can open your project
