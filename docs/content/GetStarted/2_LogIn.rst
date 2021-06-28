@@ -8,4 +8,6 @@ Login in CloudLabeling
 ================
 
 To log in, visit [cloudlabeling.org](https://cloudlabeling.org) and enter your credentials. 
-If you do not have any credentials, please visit [create an account](GetStarted/1_CreateAccount.html).
+If you do not have any credentials, please visit  :ref:`1_CreateAccount`
+
+This is a link to the RST Overview: :ref:`RST Overview`
