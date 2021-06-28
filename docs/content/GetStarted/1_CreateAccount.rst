@@ -7,4 +7,4 @@
 Create an Account
 ====================
 
-how to create an account
+To create an account, please send us an email at silvio [dot] giancola [at] kaust [dot] edu [dot] sa .
