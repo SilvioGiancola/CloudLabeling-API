@@ -17,14 +17,14 @@ Cloud Labeling: Object Detection Platform for Dataset Annotation and Detection M
    :maxdepth: 1
    :caption: Getting Started
 
-   content/GetStarted/CreateAccount
-   content/GetStarted/LogIn
-   content/GetStarted/CreateProject
-   content/GetStarted/UploadData
-   content/GetStarted/AnnotateImages
-   content/GetStarted/TrainModel
-   content/GetStarted/Inference
-   content/GetStarted/APICalls
+   content/GetStarted/1_CreateAccount
+   content/GetStarted/2_LogIn
+   content/GetStarted/3_CreateProject
+   content/GetStarted/4_UploadData
+   content/GetStarted/5_AnnotateImages
+   content/GetStarted/6_TrainModel
+   content/GetStarted/7_Inference
+   content/GetStarted/8_APICalls
 
 .. toctree::
    :glob:
