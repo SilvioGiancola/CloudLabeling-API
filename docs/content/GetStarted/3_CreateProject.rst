@@ -9,7 +9,7 @@ Create a Project
 
 To create a project click "New Project".
 
-.. image:: image/search.png
+.. image:: ./image/search.png
   :width: 400
   :alt: Alternative text
 
