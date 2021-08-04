@@ -10,15 +10,17 @@ Frequently Asked Questions
 
 How to create an account?
 -----------------
-To create an account, please send us an email at silvio [dot] giancola [at] kaust [dot] edu [dot] sa .
+CloudLabeling is in limited access for hand-picked project. Please request your access by sending en email to silvio [dot] giancola [at] kaust [dot] edu [dot] sa .
 
+Is there a limitation in the number of projects/images?
+-----------------
+CloudLabeling is in limited access for hand-picked users. We currently do not have limit in the number of projects/images for those hand-picked users.
 
 How long does it takes to train a model?
 -----------------
 The training time is proportional to the number of images you have uploaded. That time appears in the main landing page. 
 
-
-Is there a limitation in the number of projects/images?
+Do I need a GPU to train my model?
 -----------------
-Currently, there are no limits.
+No, everything is handled in the cloud on dedicated servers. Same with inference.
 
