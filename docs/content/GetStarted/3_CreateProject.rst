@@ -7,10 +7,10 @@
 Create a Project
 ================
 
-To create a project click "New Project".
+To create a project, type a name is the box "New Project Name" and click on "Add".
 
-.. image:: ./image/SignIn.png
+.. image:: ./image/3_CreateProject.png
   :width: 400
   :alt: Alternative text
 
-Then you can open your project
+Once your project is created, you can "Open" it.

@@ -9,7 +9,7 @@ Sign in CloudLabeling
 
 To log in, visit https://cloudlabeling.org and enter your credentials. 
 
-.. image:: ./image/SignIn.png
+.. image:: ./image/2_SignIn.png
   :width: 400
   :alt: Alternative text
 
