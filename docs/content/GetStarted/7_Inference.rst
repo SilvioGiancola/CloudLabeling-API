@@ -27,17 +27,17 @@ Note that those automatic annotations will erase your previous manual annotation
 
 You can remote infer image by sending your image in our server. 
 
-We provide an API call for remote inference with:
+We provide an API call for remote inference with::
 
-```
-curl -H "Content-Type: image/jpeg" \
--H "project_id: MSCOCO" \
--X POST \
---data-binary @/path/to/your/image.jpg \
-http://cloudlabeling.org:4000/api/predict
-```
+Example for inference::
 
-You can set the `project_id` to any pretrained model available on CloudLabeling, or the model you have trained in your own project, using its unique `project_id` shown in your project list.
+  curl -H "Content-Type: image/jpeg" \
+  -H "project_id: MSCOCO" \
+  -X POST \
+  --data-binary @/path/to/your/image.jpg \
+  http://cloudlabeling.org:4000/api/predict
+
+You can set the *project_id* to any pretrained model available on CloudLabeling, or the model you have trained in your own project, using its unique *project_id* shown in your project list.
 
 .. image:: ./image/3_CreateProject.png
   :width: 600
