@@ -13,4 +13,4 @@ Once you have annotated at least a couple of images, you can close your project,
   :width: 600
   :alt: Alternative text
 
-The interface will inform you of the time it needs to train the model.
+The interface will inform you whether it is currently training, the estimated time for the training of the model, and when was the last training performed.

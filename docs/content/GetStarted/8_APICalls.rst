@@ -7,6 +7,17 @@
 API Calls
 ================
 
-API call for training
+1. API call for training
+-----------------
 
-API call for inference
+
+2. API call for inference
+-----------------
+
+  curl -H "Content-Type: image/jpeg" \
+  -H "project_id: MSCOCO" \
+  -X POST \
+  --data-binary @/path/to/your/image.jpg \
+  http://cloudlabeling.org:4000/api/predict
+
+
