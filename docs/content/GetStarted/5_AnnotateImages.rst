@@ -8,6 +8,7 @@ Annotate Images
 ================
 
 1. Manual Annotation
+-----------------
 
 Selct the image you want to annotate on the left panel.
 
@@ -33,10 +34,14 @@ Once your annotations are complete, make sure to save them by clicking on the re
 
 
 2. Automatic annotations
+-----------------
 
-you can automatically annotate you images by inference generic pre-trained models.
-
-We provide models pre-trained on MSCOCO (80 generic classes), Fish detection, People detection and Striga Seeds detection.
+You can automatically annotate you images by inference generic pre-trained models.
+We provide models pre-trained on:
+ - MSCOCO (80 generic classes), 
+ - Fish detection (generic), 
+ - People detection and
+ - Striga Seeds detection (Germinated/Non-Germinated Seeds and Seeds/Radical).
 
 .. image:: ./image/AnnotationFromPreTraining.png
   :width: 600
