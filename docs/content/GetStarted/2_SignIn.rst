@@ -10,7 +10,7 @@ Sign in CloudLabeling
 To log in, visit https://cloudlabeling.org and enter your credentials. 
 
 .. image:: ./image/2_SignIn.png
-  :width: 400
+  :width: 600
   :alt: Alternative text
 
 If you do not have any credentials, create one by sending us an email at silvio [dot] giancola [at] kaust [dot] edu [dot] sa .  
