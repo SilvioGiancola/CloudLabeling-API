@@ -18,7 +18,7 @@ Cloud Labeling: Object Detection Platform for Dataset Annotation and Detection M
    :caption: Getting Started
 
    content/GetStarted/1_CreateAccount
-   content/GetStarted/2_LogIn
+   content/GetStarted/2_SignIn
    content/GetStarted/3_CreateProject
    content/GetStarted/4_UploadData
    content/GetStarted/5_AnnotateImages
