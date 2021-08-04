@@ -15,7 +15,7 @@ To create an account, please send us an email at silvio [dot] giancola [at] kaus
 
 How long does it takes to train a model?
 -----------------
-The training time is proportional to the number of images you have uploaded. That time appears in the main landing pages. 
+The training time is proportional to the number of images you have uploaded. That time appears in the main landing page. 
 
 
 Is there a limitation in the number of projects/images?
