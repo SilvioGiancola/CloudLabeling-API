@@ -14,6 +14,8 @@ API Calls
 2. API call for inference
 -----------------
 
+Example of inference::
+
   curl -H "Content-Type: image/jpeg" \
   -H "project_id: MSCOCO" \
   -X POST \
