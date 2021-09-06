@@ -48,8 +48,8 @@ class CloudLabeling:
         
         # Arrange results
         new_results = []
-        for box, label, label_idx, score in zip(results["boxes"], results["labels_words"], results["labels_idx"], results["scores"]):
-            new_results.append({"box":box, "label":label, "label_idx":label_idx, "confidence":score}) 
+        for box, label, score in zip(results["boxes"], results["labels_words"], results["scores"]):
+            new_results.append({"box":box, "label":label, "confidence":score}) 
         # list of labels
         labels =list(set([r["label"] for r in new_results]))
 

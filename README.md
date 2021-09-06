@@ -16,7 +16,7 @@ from cloudlabeling import cloudlabeling
 
 cloud_labeler = cloudlabeling.CloudLabeling()
 
-results = cloud_labeler.infer_remotely(image_path, project_id="MSCOCO")
+results = cloud_labeler.infer_remotely(image_path, project_id="MSCOCO", user_token=<token_from_cloudlabeling.org>)
 ```
 
 Results output in JSON format
