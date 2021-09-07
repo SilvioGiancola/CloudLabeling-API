@@ -14,9 +14,12 @@ pip install cloudlabeling
 ```python
 from cloudlabeling import cloudlabeling
 
-cloud_labeler = cloudlabeling.CloudLabeling()
+api_token = "303630fcc6a04793ba7e09fc0336a037"
+cloud_labeler = cloudlabeling.CloudLabeling(api_token=api_token)
 
-results = cloud_labeler.infer_remotely(image_path, project_id="MSCOCO", user_token=<token_from_cloudlabeling.org>)
+image_path = "tools/sample_striga.jpg"
+
+results = cloud_labeler.infer_remotely(image_path, project_id="MSCOCO")
 ```
 
 Results output in JSON format

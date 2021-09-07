@@ -7,10 +7,11 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 # import gdown
 
 class CloudLabeling:
-    def __init__(self, HOST="cloudlabeling.org", PORT=4000, device="cpu"):
+    def __init__(self, HOST="cloudlabeling.org", PORT=4000, device="cpu", api_token=None):
         self.HOST = HOST                
         self.PORT = PORT                
         self.device = device
+        self.api_token = api_token
 
 
     def infer_remotely(self, image_path, project_id="MSCOCO", request_type="image/jpeg"):
@@ -20,21 +21,24 @@ class CloudLabeling:
                             data=open(image_path, 'rb').read(), 
                             headers={"content-type":"image/jpeg",
                                      "project_id": project_id,
-                                     "device": self.device})
+                                     "device": self.device,
+                                     "api_token": self.api_token})
 
         elif request_type == "gdrive/jpeg":
             r = requests.post(f'http://{self.HOST}:{self.PORT}/api/predict', 
                             headers={"content-type":"gdrive/jpeg",
                                      "gdrive/jpeg":image_path,
                                      "project_id": project_id, 
-                                     "device": self.device})
+                                     "device": self.device,
+                                     "api_token": self.api_token})
 
         elif request_type == "gdrive/mp4":
             r = requests.post(f'http://{self.HOST}:{self.PORT}/api/predict', 
                             headers={"content-type":"gdrive/mp4",
                                      "gdrive/mp4":image_path,
                                      "project_id": project_id, 
-                                     "device": self.device})
+                                     "device": self.device,
+                                     "api_token": self.api_token})
         # return dictionary with {"boxes", "labels_words", "scores"}
         # print(r.text)
 
