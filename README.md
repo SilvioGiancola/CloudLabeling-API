@@ -14,8 +14,10 @@ pip install cloudlabeling
 ```python
 from cloudlabeling import cloudlabeling
 
-cloud_labeler = cloudlabeling.CloudLabeling()
+api_token = "..."
+cloud_labeler = cloudlabeling.CloudLabeling(api_token=api_token)
 
+image_path = "tools/sample_striga.jpg"
 results = cloud_labeler.infer_remotely(image_path, project_id="MSCOCO")
 ```
 
@@ -51,6 +53,7 @@ Results output in JSON format
 curl -H "Content-Type: image/jpeg" \
 -H "project_id: MSCOCO" \
 -H "device: cuda:0" \
+-H "api_token: xxx" \
 -X POST \
 --data-binary @/path/to/image.jpg \
 http://cloudlabeling.org:4000/api/predict
