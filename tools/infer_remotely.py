@@ -17,17 +17,18 @@ parser.add_argument("--image_path", type=str, help="path of an image to infer")
 parser.add_argument("--output_path", type=str, help="path to save the output image")                   
 parser.add_argument("--project_id", type=str, default="MSCOCO", help="ID of the project for inference")                   
 
-# Advanced Settigns
+# Advanced Settings
 parser.add_argument("--HOST", type=str, default="cloudlabeling.org", help="host IP")                        
 parser.add_argument("--PORT", type=int, default=4000, help="commmunication port")
-parser.add_argument("--device", type=str, default="cpu", help="ID of the project for inference")                   
+parser.add_argument("--device", type=str, default="cpu", help="ID of the project for inference")    
+parser.add_argument("--post", type=str, default="requests", help="how to communicate with server requests[default]/curl")                   
 args = parser.parse_args()
 
 # create CloudLabeling instance
 cloud_labeler = cloudlabeling.CloudLabeling(HOST=args.HOST, PORT=args.PORT, device=args.device)
 
 # inference 
-results = cloud_labeler.infer_remotely(args.image_path, args.project_id)
+results = cloud_labeler.infer_remotely(args.image_path, args.project_id, post=args.post)
 
 # display results
 if results["error"] is not None:

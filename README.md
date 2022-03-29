@@ -93,3 +93,39 @@ pip install boto3
 python tools/run_server.py
 
 python tools/infer_remotely.py --image_path=tools/sample_striga.jpg --output_path=tools/sample_striga_out.jpg --project_id=Striga_Strat1 --HOST localhost
+
+
+## Sanity check
+
+curl -H "Content-Type: image/jpeg" -H "project_id: Striga_Strat1" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Desktop/proj_csv/image001.jpg http://10.68.74.28:4000/api/predict                             
+
+curl -H "Content-Type: image/jpeg" -H "project_id: 75" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Desktop/WhiteHelmet/000015.jpg http://10.68.74.28:4000/api/predict
+
+curl -H "Content-Type: image/jpeg" -H "project_id: 77" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Desktop/proj_csv/image001.jpg http://10.68.74.28:4000/api/predict 
+
+
+
+curl -H "Content-Type: image/jpeg" -H "project_id: Striga_Strat1" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Desktop/proj_csv/image001.jpg http://cloudlabeling.org:4000/api/predict    
+curl -H "Content-Type: image/jpeg" -H "project_id: Striga_Strat2" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Desktop/proj_csv/image001.jpg http://cloudlabeling.org:4000/api/predict                             
+
+curl -H "Content-Type: image/jpeg" -H "project_id: 75" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Desktop/WhiteHelmet/000015.jpg http://cloudlabeling.org:4000/api/predict
+
+curl -H "Content-Type: image/jpeg" -H "project_id: 77" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Desktop/proj_csv/image001.jpg http://cloudlabeling.org:4000/api/predict 
+
+
+
+# LARGE FILES
+curl -H "Content-Type: image/jpeg" -H "project_id: 75" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Downloads/360ImagesTr/1.jpg http://cloudlabeling.org:4000/api/predict
+
+curl -H "Content-Type: image/jpeg" -H "project_id: 75" -H "device: cuda:0" -H "api_token: 303630fcc6a04793ba7e09fc0336a037" -X POST --data-binary @/Users/giancos/Downloads/360ImagesTr/1.jpg http://10.68.74.28:4000/api/predict
+
+
+curl https://cloudlabeling-models-product.s3.ap-south-1.amazonaws.com/mar_files/75.mar --output 75.mar 
+curl -X POST "http://10.68.74.28:8081/models?url=75.mar&model_name=75&initial_workers=1&synchronous=true"
+
+curl http://10.68.74.28:8081/models
+
+curl http://10.68.74.28:8080/predictions/75 -F "data=@1.jpg"
+curl http://10.68.74.28:8080/predictions/75 -T 1.jpg
+
+-T /Users/giancos/Downloads/360ImagesTr/1.jpg

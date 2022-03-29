@@ -14,35 +14,60 @@ class CloudLabeling:
         self.api_token = api_token
 
 
-    def infer_remotely(self, image_path, project_id="MSCOCO", request_type="image/jpeg"):
-        # send request
-        if request_type == "image/jpeg":
-            r = requests.post(f'http://{self.HOST}:{self.PORT}/api/predict', 
-                            data=open(image_path, 'rb').read(), 
-                            headers={"content-type":"image/jpeg",
-                                     "project_id": project_id,
-                                     "device": self.device,
-                                     "api_token": self.api_token})
+    def infer_remotely(self, image_path, project_id="MSCOCO", request_type="image/jpeg", post="requests"):
+        if post == "requests":
+            # send request
+            if request_type == "image/jpeg":
+                r = requests.post(f'http://{self.HOST}:{self.PORT}/api/predict', 
+                                data=open(image_path, 'rb').read(), 
+                                headers={"content-type":"image/jpeg",
+                                        "project_id": project_id,
+                                        "device": self.device,
+                                        "api_token": self.api_token})
 
-        elif request_type == "gdrive/jpeg":
-            r = requests.post(f'http://{self.HOST}:{self.PORT}/api/predict', 
-                            headers={"content-type":"gdrive/jpeg",
-                                     "gdrive/jpeg":image_path,
-                                     "project_id": project_id, 
-                                     "device": self.device,
-                                     "api_token": self.api_token})
+            elif request_type == "gdrive/jpeg":
+                r = requests.post(f'http://{self.HOST}:{self.PORT}/api/predict', 
+                                headers={"content-type":"gdrive/jpeg",
+                                        "gdrive/jpeg":image_path,
+                                        "project_id": project_id, 
+                                        "device": self.device,
+                                        "api_token": self.api_token})
 
-        elif request_type == "gdrive/mp4":
-            r = requests.post(f'http://{self.HOST}:{self.PORT}/api/predict', 
-                            headers={"content-type":"gdrive/mp4",
-                                     "gdrive/mp4":image_path,
-                                     "project_id": project_id, 
-                                     "device": self.device,
-                                     "api_token": self.api_token})
-        # return dictionary with {"boxes", "labels_words", "scores"}
-        # print(r.text)
+            elif request_type == "gdrive/mp4":
+                r = requests.post(f'http://{self.HOST}:{self.PORT}/api/predict', 
+                                headers={"content-type":"gdrive/mp4",
+                                        "gdrive/mp4":image_path,
+                                        "project_id": project_id, 
+                                        "device": self.device,
+                                        "api_token": self.api_token})
+            # return dictionary with {"boxes", "labels_words", "scores"}
+            # print(r.text)
 
-        results = json.loads(r.text)
+            results = json.loads(r.text)
+        elif post == "curl":
+            import subprocess
+            import json
+            if request_type == "image/jpeg":
+                process = subprocess.Popen([
+                    'curl',
+                    '-H',
+                    'Content-Type:image/jpeg',
+                    '-H',
+                    f'project_id:{project_id}',
+                    '-H',
+                    f'api_token:{self.api_token}',
+                    '-X',
+                    'POST',
+                    '--data-binary',
+                    f'@{image_path}',
+                    f'http://{self.HOST}:{self.PORT}/api/predict'
+                    ],
+                    stdout=subprocess.PIPE, 
+                    stderr=subprocess.PIPE)
+                out, err = process.communicate()
+            results = json.loads(out)
+
+
         # if error in inference
         if results["error"] is not None:
             print("Error in inference:")
